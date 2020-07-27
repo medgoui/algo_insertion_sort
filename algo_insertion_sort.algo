@@ -1,0 +1,62 @@
+FUNCTION read_size() : INTEGER
+VAR
+    n : INTEGER;
+BEGIN
+    REPEAT
+        Read(n);
+    UNTIL (n<=0 OR n>100);
+    RETURN n ;
+END
+
+
+PROCEDURE read_tab(var t:ARRAY_OF INTEGER, n:INTEGER)
+VAR
+    i: INTEGER;
+BEGIN
+    FOR i FROM 0 TO n-1 DO
+        Read(t[i]);
+    END_FOR
+END
+
+
+PROCEDURE display_tab(t:ARRAY_OF INTEGER, n:INTEGER)
+VAR
+    i:INTEGER;
+BEGIN
+    FOR i FROM 0 TO n-1 DO
+        Write(t[i]);
+    END_FOR
+END
+
+
+PROCEDURE sort_insertion(var t:ARRAY_OF INTEGER, n:INTEGER)
+VAR
+    i,j,key:INTEGER;
+BEGIN
+    FOR i FROM 1 TO n-1 DO
+        key := t[i];
+        j := i - 1;
+        WHILE (j >= 0 AND t[j] > key) DO
+            t[j + 1] := t[j];
+            j := j - 1;
+        END_WHILE
+        t[j + 1] := key;
+    END_FOR
+END
+
+
+ALGORITHM check_sort
+VAR
+    tab : ARRAY_OF INTEGER[100];
+    N:INTEGER;
+BEGIN
+    Write("Give the length of your array ");
+    N := read_size();
+    Write("Give the elements of your array ");
+    read_tab(tab,N);
+    Write("*** Array before sorting ***");
+    display_tab(tab,N);
+    sort_insertion(tab,N);
+    Write("*** Array after sorting ***");
+    display_tab(tab,N);
+END
